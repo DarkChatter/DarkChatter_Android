@@ -35,7 +35,8 @@ public class GroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent chat = new Intent(GroupActivity.this, ChatActivity.class);
-                GroupActivity.this.startActivity(chat);
+                //GroupActivity.this.startActivity(chat);
+                startActivity(chat);
 
             }
         });
