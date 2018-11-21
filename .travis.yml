@@ -22,4 +22,4 @@ android:
     #- sys-img-x86-android-26
     #- sys-img-armeabi-v7a-android-17
 script: 
-- ./DarkChatter_Android/DarkChatter/gradlew build connectedCheck
+- ./DarkChatter/gradlew build connectedCheck
