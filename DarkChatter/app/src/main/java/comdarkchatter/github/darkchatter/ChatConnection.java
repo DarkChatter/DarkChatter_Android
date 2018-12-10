@@ -20,7 +20,9 @@ package comdarkchatter.github.darkchatter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -62,10 +64,12 @@ public class ChatConnection {
         mChatClient = new ChatClient(address, port);
     }
 
-    public void sendMessage(String msg) {
+    //send message returns true if sent, false if not sent
+    public boolean sendMessage(String msg) {
         if (mChatClient != null) {
-            mChatClient.sendMessage(msg);
+            return mChatClient.sendMessage(msg);
         }
+        return false;
     }
 
     public int getLocalPort() {
@@ -261,13 +265,15 @@ public class ChatConnection {
             }
         }
 
-        public void sendMessage(String msg) {
-            try {
+        public boolean sendMessage(String msg) {
+            //boolean to check if the message was sent without errors
+            boolean messageSent = true;
+             try {
                 Socket socket = getSocket();
                 if (socket == null) {
-                    Log.d(CLIENT_TAG, "Socket is null, wtf?");
+                    Log.d(CLIENT_TAG, "Socket is null");
                 } else if (socket.getOutputStream() == null) {
-                    Log.d(CLIENT_TAG, "Socket output stream is null, wtf?");
+                    Log.d(CLIENT_TAG, "Socket output stream is null");
                 }
 
                 PrintWriter out = new PrintWriter(
@@ -276,14 +282,20 @@ public class ChatConnection {
                 out.println(msg);
                 out.flush();
                 updateMessages(msg, true);
+
             } catch (UnknownHostException e) {
                 Log.d(CLIENT_TAG, "Unknown Host", e);
+                 messageSent = false;
             } catch (IOException e) {
                 Log.d(CLIENT_TAG, "I/O Exception", e);
+                 messageSent = false;
             } catch (Exception e) {
                 Log.d(CLIENT_TAG, "Error3", e);
+                 messageSent = false;
             }
-            Log.d(CLIENT_TAG, "Client sent message: " + msg);
+
+             Log.d(CLIENT_TAG, "Client sent message: " + msg);
+             return messageSent;
         }
     }
 }

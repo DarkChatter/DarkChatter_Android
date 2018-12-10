@@ -61,6 +61,7 @@ public class ChatActivity extends Activity {
         if(mConnection.getLocalPort() > -1) {
             mNsdHelper.registerService(mConnection.getLocalPort());
         } else {
+            //User-side warning when register fails
             Snackbar registerError = Snackbar.make(v, "Unable to register!", Snackbar.LENGTH_SHORT);
             registerError.show();
             Log.d(TAG, "ServerSocket isn't bound.");
@@ -78,6 +79,7 @@ public class ChatActivity extends Activity {
             mConnection.connectToServer(service.getHost(),
                     service.getPort());
         } else {
+            //User-side warning when connect fails
             Snackbar connectError = Snackbar.make(v, "Unable to connect! There is a problem with the service.", Snackbar.LENGTH_SHORT);
             connectError.show();
             Log.d(TAG, "No service to connect to!");
@@ -89,7 +91,12 @@ public class ChatActivity extends Activity {
         if (messageView != null) {
             String messageString = messageView.getText().toString();
             if (!messageString.isEmpty()) {
-                mConnection.sendMessage(messageString);
+                boolean messageSent = mConnection.sendMessage(messageString);
+                if (!messageSent){
+                    //User-side warning when connect fails
+                    Snackbar messageSentError = Snackbar.make(v, "Message was not sent. There is a problem with the service.", Snackbar.LENGTH_SHORT);
+                    messageSentError.show();
+                }
             }
             messageView.setText("");
         }
