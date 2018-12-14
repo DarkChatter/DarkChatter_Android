@@ -16,12 +16,15 @@
 package comdarkchatter.github.darkchatter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.support.design.widget.Snackbar;
@@ -100,6 +103,21 @@ public class ChatActivity extends Activity {
             }
             messageView.setText("");
         }
+    }
+
+    /** Called when the user taps the info button*/
+    public void infoPage(View v) {
+        Button info = (Button) findViewById(R.id.info);
+        info.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent infoPage = new Intent(ChatActivity.this, InfoPage.class);
+                //GroupActivity.this.startActivity(chat);
+                startActivity(infoPage);
+
+            }
+        });
     }
 
     public void addChatLine(String line) {

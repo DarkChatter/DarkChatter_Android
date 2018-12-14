@@ -64,4 +64,29 @@
         android:onClick="clickSend"
         android:text="@string/send" />
 
+    <TextView
+        android:id="@+id/status2"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:focusable="true" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:text="New to Darkchatter? Click the button for more info."
+        />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/info"
+            android:layout_width="96dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="300dp"
+            android:onClick="infoPage"
+            android:text="@string/info" />
+    </LinearLayout>
+
 </LinearLayout>
